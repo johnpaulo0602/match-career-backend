@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: match-career-mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: .
+    container_name: match-career-backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongo
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/match-career
+      - EVOLUTION_API_BASE_URL=https://doc.evolution-api.com/v2
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  mongo_data:
