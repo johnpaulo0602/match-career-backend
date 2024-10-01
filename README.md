@@ -20,7 +20,7 @@ O sistema tem como objetivo coletar respostas dos usuários a perguntas relacion
 ### 1. Clonar o Repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/gepittes/match-career-backend
 cd match-career-backend
 ```
 
