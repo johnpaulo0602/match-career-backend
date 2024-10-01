@@ -1,85 +1,137 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Match Career Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Visão Geral
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto faz parte do sistema "Match Career", um teste vocacional baseado na teoria das Múltiplas Inteligências de Howard Gardner. O backend foi desenvolvido utilizando NestJS, Prisma e MongoDB para gerenciar os dados do teste e integração com o bot do WhatsApp.
 
-## Description
+## Tecnologias Utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **NestJS**: Framework para construção do backend.
+- **Prisma**: ORM utilizado para comunicação com o banco de dados.
+- **MongoDB**: Banco de dados utilizado para armazenar os dados dos usuários e questões.
+- **API Evolution**: API utilizada para integração com o WhatsApp.
 
-## Project setup
+## Objetivo do Projeto
+
+O sistema tem como objetivo coletar respostas dos usuários a perguntas relacionadas às suas inteligências predominantes e, no final, enviar os resultados por email. O usuário acessa uma landing page, onde é redirecionado para um bot no WhatsApp, chamado Caio, que conduz o teste.
+
+## Configuração Inicial
+
+### 1. Clonar o Repositório
 
 ```bash
-$ npm install
+git clone <url-do-repositorio>
+cd match-career-backend
 ```
 
-## Compile and run the project
+### 2. Instalar as Dependências
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### 3. Configurar o Banco de Dados
+
+Crie um arquivo `.env` na raiz do projeto com base no arquivo `.env.example`:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Resources
+Atualize o arquivo `.env` com os valores corretos, por exemplo:
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+DATABASE_URL="mongodb://localhost:27017/match-career"
+EVOLUTION_API_BASE_URL="https://doc.evolution-api.com/v2"
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 4. Executar a Migração do Prisma
 
-## Support
+Use o Prisma para criar as tabelas no MongoDB:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npx prisma db push
+```
 
-## Stay in touch
+### 5. Popular o Banco de Dados com Perguntas (Seed)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Para adicionar as perguntas do teste vocacional ao banco de dados, execute:
 
-## License
+```bash
+npm run seed
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 6. Verificar o Banco de Dados com Prisma Studio
+
+Você pode visualizar e gerenciar os dados do banco de dados usando o Prisma Studio:
+
+```bash
+npx prisma studio
+```
+
+Isso abrirá uma interface gráfica onde você pode visualizar as tabelas e dados existentes no banco de dados.
+
+## Estrutura do Projeto
+
+### Módulos
+
+- **UserModule**: Gerencia o cadastro dos usuários.
+- **TestModule**: Controla o teste vocacional e a coleta de respostas.
+- **WhatsAppModule**: Integração com a API Evolution para enviar e receber mensagens do bot.
+- **EmailModule**: Responsável por enviar os resultados do teste por email.
+
+### Endpoints
+
+Os principais endpoints da aplicação incluem:
+
+- `POST /user`: Cadastro de um novo usuário.
+- `GET /test/questions`: Retorna as perguntas do teste vocacional.
+- `POST /test/response`: Armazena as respostas do teste.
+- `POST /test/result`: Gera e envia o resultado por email.
+
+## Comandos Úteis
+
+### Iniciar o Servidor de Desenvolvimento
+
+```bash
+npm run start:dev
+```
+
+### Seed do Banco de Dados
+
+Para popular o banco de dados com as questões:
+
+```bash
+npm run seed
+```
+
+### Prisma Studio
+
+Para abrir uma interface gráfica e visualizar os dados do banco:
+
+```bash
+npx prisma studio
+```
+
+### Executar a Migração
+
+Para aplicar as alterações do schema no banco de dados:
+
+```bash
+npx prisma db push
+```
+
+## Funcionamento do Sistema
+
+1. **Usuário Acessa a Landing Page**: O usuário clica no botão de "Fazer teste agora" e é redirecionado para o WhatsApp.
+2. **Bot Conduz o Teste**: O bot Caio no WhatsApp faz perguntas ao usuário usando a API Evolution. As respostas são armazenadas no banco de dados.
+3. **Resultados do Teste**: Após o usuário concluir as perguntas, o sistema processa as respostas e identifica as inteligências predominantes.
+4. **Envio por Email**: O resultado é enviado para o email do usuário, oferecendo sugestões de carreiras adequadas.
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um pull request ou reportar problemas.
+
+## Licença
+
+Este projeto é licenciado sob a licença MIT.
