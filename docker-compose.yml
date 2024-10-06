@@ -6,6 +6,9 @@ services:
     container_name: match-career-mongo
     ports:
       - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
       - mongo_data:/data/db
 
@@ -17,7 +20,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - DATABASE_URL=mongodb://mongo:27017/match-career
+      - DATABASE_URL=mongodb://admin:secret@mongo:27017/match-career?authSource=admin
       - EVOLUTION_API_BASE_URL=https://doc.evolution-api.com/v2
     volumes:
       - .:/app
