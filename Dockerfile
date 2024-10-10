@@ -17,7 +17,7 @@ COPY . .
 RUN npx prisma generate
 
 # Definir a variável de ambiente DATABASE_URL diretamente
-ENV DATABASE_URL="mongodb://mongo:HidkuZYPFMbueuBKUClKMHhffKlqUJQB@mongodb.railway.internal:27017/matchCareer"
+ENV DATABASE_URL="mongodb+srv://johnpaulo:HXAoXC8h3gPxu0mK@cluster0.uyyeelh.mongodb.net/matchCareer?retryWrites=true&w=majority&appName=Cluster0"
 
 # Aplicar as mudanças no banco de dados (equivalente a npx prisma db push)
 RUN npx prisma db push
