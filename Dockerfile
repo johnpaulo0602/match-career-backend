@@ -20,7 +20,7 @@ RUN npx prisma generate
 ENV DATABASE_URL="mongodb+srv://johnpaulo:HXAoXC8h3gPxu0mK@cluster0.uyyeelh.mongodb.net/matchCareer?retryWrites=true&w=majority&appName=Cluster0"
 
 # Aplicar as mudanças no banco de dados (equivalente a npx prisma db push)
-RUN npx prisma db push
+RUN npx prisma db push --force
 
 # Construir a aplicação (gerar os arquivos para produção)
 RUN npm run build
