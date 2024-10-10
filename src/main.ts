@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // Configurar o CORS para permitir Hoppscotch
   app.enableCors({
-    origin: ['painelbot.startedgo.com'], // Permite requisições somente desta URL
+    origin: ['typebot.startedbot.com.br'], // Permite requisições somente desta URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
     credentials: true, // Permitir cookies, se necessário
   });

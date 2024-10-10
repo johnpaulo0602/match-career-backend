@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, Patch, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Patch,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -11,7 +19,11 @@ export class UserController {
     @Body('email') email: string,
     @Body('whatsappNumber') whatsappNumber: string,
   ) {
-    const user = await this.userService.createUser({ name, email, whatsappNumber });
+    const user = await this.userService.createUser({
+      name,
+      email,
+      whatsappNumber,
+    });
     return user;
   }
 
@@ -26,7 +38,7 @@ export class UserController {
         whatsappNumber: user.whatsappNumber,
       };
     }
-    return { message: 'Usuário não encontrado' };
+    throw new NotFoundException('Usuário não encontrado');
   }
 
   @Patch('update/:whatsappNumber')
@@ -35,7 +47,10 @@ export class UserController {
     @Body() updateData: { name?: string; email?: string },
   ) {
     try {
-      const updatedUser = await this.userService.updateUser(whatsappNumber, updateData);
+      const updatedUser = await this.userService.updateUser(
+        whatsappNumber,
+        updateData,
+      );
       return updatedUser;
     } catch (error) {
       throw new NotFoundException('Usuário não encontrado');
